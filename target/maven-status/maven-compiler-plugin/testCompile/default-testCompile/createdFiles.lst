@@ -1,0 +1,9 @@
+com\lise\BaseClass.class
+com\lise\Model\GetResponse.class
+com\lise\Test\PropertiesData.class
+com\lise\Model\PostBody.class
+com\lise\Model\PostResponse.class
+com\lise\Model\Dev.class
+com\lise\Model\PutResponse.class
+com\lise\Model\PutBody.class
+com\lise\Test\GetPostPutDelete.class
