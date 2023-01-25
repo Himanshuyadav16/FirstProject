@@ -24,7 +24,7 @@ public class GetPostPutDelete extends BaseClass {
 
     @Test
     public void getAllTest() {
-        System.out.println("Get Method =>" + RestAssured.baseURI);
+     //   System.out.println("Get Method =>" + RestAssured.baseURI);
         List<GetResponse> list = new ArrayList<>();
         Response getResponse = getUser();
         JSONArray jsonArray = new JSONArray(getResponse.asString());
@@ -33,13 +33,13 @@ public class GetPostPutDelete extends BaseClass {
             GetResponse student = gson.fromJson(jsonArray.getJSONObject(i).toString(), GetResponse.class);
             list.add(student);
         }
-        System.out.println(list);
+      //  System.out.println(list);
         assertThat(getResponse.getStatusCode(),is(HttpStatus.SC_OK));
     }
 
     @Test
     public void postTest() {
-        System.out.println("Post Method=>" + RestAssured.baseURI);
+        //System.out.println("Post Method=>" + RestAssured.baseURI);
         PostBody postBody = new PostBody();
         Faker faker = new Faker();
         postBody.setName(faker.name().name());
@@ -47,19 +47,19 @@ public class GetPostPutDelete extends BaseClass {
         postBody.setGender("male");
         postBody.setStatus("active");
         PostResponse postResponse = postUser(postBody);
-        System.out.println("post response=>" + postResponse.toString());
+      //  System.out.println("post response=>" + postResponse.toString());
         JSONObject jsonObject = new JSONObject(postResponse);
-        System.out.println(postResponse.getId());
+     //   System.out.println(postResponse.getId());
         id = postResponse.getId();
         int id = jsonObject.getInt("id");
         Response res = deleteUser(id);
-        System.out.println("response=>" + res.asString());
+       // System.out.println("response=>" + res.asString());
 
     }
 
     @Test
     public void updateTest() {
-        System.out.println("update Method =>" + RestAssured.baseURI);
+       // System.out.println("update Method =>" + RestAssured.baseURI);
         PostBody postBody = new PostBody();
         Faker faker = new Faker();
         postBody.setName(faker.name().name());
@@ -67,7 +67,7 @@ public class GetPostPutDelete extends BaseClass {
         postBody.setGender("male");
         postBody.setStatus("active");
         PostResponse postResponse = postUser(postBody);
-        System.out.println("post response=>" + postResponse.toString());
+        //System.out.println("post response=>" + postResponse.toString());
         JSONObject jsonObject = new JSONObject(postResponse);
         int id = jsonObject.getInt("id");
 
@@ -78,14 +78,14 @@ public class GetPostPutDelete extends BaseClass {
         putBody.setGender("male");
         putBody.setStatus("inactive");
         PutResponse updateResponse = updateUser(putBody, id);
-        System.out.println("updateResponse=" + updateResponse.toString());
+  //      System.out.println("updateResponse=" + updateResponse.toString());
         Response res = deleteUser(id);
-        System.out.println("response=>" + res.asString());
+    //    System.out.println("response=>" + res.asString());
     }
 
     @Test
     public void deleteTest() {
-        System.out.println("delete Method =>" + RestAssured.baseURI);
+     //   System.out.println("delete Method =>" + RestAssured.baseURI);
         PostBody postBody = new PostBody();
         Faker faker = new Faker();
         postBody.setName(faker.name().name());
@@ -97,7 +97,7 @@ public class GetPostPutDelete extends BaseClass {
         int id = jsonObject.getInt("id");
         Response deleteResponse = deleteUser(id);
         assertThat(deleteResponse.getStatusCode(), is(HttpStatus.SC_NO_CONTENT));
-        System.out.println(deleteResponse.getStatusCode());
+    //    System.out.println(deleteResponse.getStatusCode());
     }
 
     //Get Method
@@ -132,7 +132,6 @@ public class GetPostPutDelete extends BaseClass {
                 .as(PutResponse.class);
         return putResponse;
     }
-
     //Delete Method
     public Response deleteUser(int id) {
         Response response = given()
