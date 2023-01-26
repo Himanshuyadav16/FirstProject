@@ -94,10 +94,7 @@ public class GetPostPutDelete extends BaseClass {
         PutResponse updateResponse = updateUser(putBody, id);
 
         Response res = deleteUser(id);
-
     }
-
-
     @Test
     public void deleteTest() {
 
@@ -114,6 +111,13 @@ public class GetPostPutDelete extends BaseClass {
         assertThat(deleteResponse.getStatusCode(), is(HttpStatus.SC_NO_CONTENT));
 
     }
+    @Test
+    public void newBranchTest1(){
+        System.out.println("Print new branch test1 ");
+    }
+
+
+
 
     //Get Method
     public Response getUser() {
