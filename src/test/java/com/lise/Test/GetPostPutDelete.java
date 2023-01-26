@@ -116,9 +116,6 @@ public class GetPostPutDelete extends BaseClass {
         System.out.println("Print new branch test1 ");
     }
 
-
-
-
     //Get Method
     public Response getUser() {
         Response getResponse = given()
