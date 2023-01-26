@@ -9,11 +9,17 @@ import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
+
+
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,9 +28,12 @@ import static org.hamcrest.Matchers.*;
 public class GetPostPutDelete extends BaseClass {
     int id;
 
+
+  private  static  Logger logger = LogManager.getLogger();
     @Test
     public void getAllTest() {
-     //   System.out.println("Get Method =>" + RestAssured.baseURI);
+
+
         List<GetResponse> list = new ArrayList<>();
         Response getResponse = getUser();
         JSONArray jsonArray = new JSONArray(getResponse.asString());
@@ -33,7 +42,13 @@ public class GetPostPutDelete extends BaseClass {
             GetResponse student = gson.fromJson(jsonArray.getJSONObject(i).toString(), GetResponse.class);
             list.add(student);
         }
-      //  System.out.println(list);
+        logger.info("This is  Info message");
+        logger.fatal("This  is fatal message");
+        logger.error("This is error message ");
+        logger.debug("This is debug message ");
+        logger.warn("This is warn message");
+        logger.trace("This is trace message");
+
         assertThat(getResponse.getStatusCode(),is(HttpStatus.SC_OK));
     }
 
@@ -47,13 +62,12 @@ public class GetPostPutDelete extends BaseClass {
         postBody.setGender("male");
         postBody.setStatus("active");
         PostResponse postResponse = postUser(postBody);
-      //  System.out.println("post response=>" + postResponse.toString());
+
         JSONObject jsonObject = new JSONObject(postResponse);
-     //   System.out.println(postResponse.getId());
+
         id = postResponse.getId();
         int id = jsonObject.getInt("id");
         Response res = deleteUser(id);
-       // System.out.println("response=>" + res.asString());
 
     }
 
@@ -67,7 +81,7 @@ public class GetPostPutDelete extends BaseClass {
         postBody.setGender("male");
         postBody.setStatus("active");
         PostResponse postResponse = postUser(postBody);
-        //System.out.println("post response=>" + postResponse.toString());
+
         JSONObject jsonObject = new JSONObject(postResponse);
         int id = jsonObject.getInt("id");
 
@@ -78,14 +92,15 @@ public class GetPostPutDelete extends BaseClass {
         putBody.setGender("male");
         putBody.setStatus("inactive");
         PutResponse updateResponse = updateUser(putBody, id);
-  //      System.out.println("updateResponse=" + updateResponse.toString());
+
         Response res = deleteUser(id);
-    //    System.out.println("response=>" + res.asString());
+
     }
+
 
     @Test
     public void deleteTest() {
-     //   System.out.println("delete Method =>" + RestAssured.baseURI);
+
         PostBody postBody = new PostBody();
         Faker faker = new Faker();
         postBody.setName(faker.name().name());
@@ -97,7 +112,7 @@ public class GetPostPutDelete extends BaseClass {
         int id = jsonObject.getInt("id");
         Response deleteResponse = deleteUser(id);
         assertThat(deleteResponse.getStatusCode(), is(HttpStatus.SC_NO_CONTENT));
-    //    System.out.println(deleteResponse.getStatusCode());
+
     }
 
     //Get Method
