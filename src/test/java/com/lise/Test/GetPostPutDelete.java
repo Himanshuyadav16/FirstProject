@@ -96,8 +96,6 @@ public class GetPostPutDelete extends BaseClass {
         Response res = deleteUser(id);
 
     }
-
-
     @Test
     public void deleteTest() {
 
@@ -112,8 +110,13 @@ public class GetPostPutDelete extends BaseClass {
         int id = jsonObject.getInt("id");
         Response deleteResponse = deleteUser(id);
         assertThat(deleteResponse.getStatusCode(), is(HttpStatus.SC_NO_CONTENT));
-
     }
+
+    @Test
+    public void newBranchTest2(){
+        System.out.println("Print new branch test 2  ");
+    }
+
 
     //Get Method
     public Response getUser() {
