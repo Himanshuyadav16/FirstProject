@@ -112,7 +112,7 @@ public class GetPostPutDelete extends BaseClass {
 
     }
     @Test
-    public void newBranchTest1(){
+    public void newBranchOrigin(){
         System.out.println("Print new branch origin ");
     }
 
