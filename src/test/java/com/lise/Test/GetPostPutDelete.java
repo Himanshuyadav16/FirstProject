@@ -121,7 +121,7 @@ public class GetPostPutDelete extends BaseClass {
     //Get Method
     public Response getUser() {
         Response getResponse = given()
-                .request(Method.GET, "/users");
+                .request(Method.GET, "public/v2/users");
         return getResponse;
     }
 
@@ -133,7 +133,7 @@ public class GetPostPutDelete extends BaseClass {
                 .contentType(ContentType.JSON)
                 .body(postBody)
                 .when()
-                .request(Method.POST, "/users")
+                .request(Method.POST, "public/v2/users")
                 .as(PostResponse.class);
         return postResponse;
     }
@@ -146,7 +146,7 @@ public class GetPostPutDelete extends BaseClass {
                 .contentType(ContentType.JSON)
                 .body(putBody)
                 .when()
-                .request(Method.PUT, "/users/" + id)
+                .request(Method.PUT, "public/v2/users/" + id)
                 .as(PutResponse.class);
         return putResponse;
     }
@@ -154,7 +154,7 @@ public class GetPostPutDelete extends BaseClass {
     public Response deleteUser(int id) {
         Response response = given()
                 .header("Authorization", "Bearer " + accessToken)
-                .request(Method.DELETE, "/users/" + id);
+                .request(Method.DELETE, "public/v2/users/" + id);
         return response;
     }
 }
