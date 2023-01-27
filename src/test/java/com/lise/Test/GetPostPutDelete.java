@@ -14,13 +14,8 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -28,12 +23,10 @@ import static org.hamcrest.Matchers.*;
 public class GetPostPutDelete extends BaseClass {
     int id;
 
-
   private  static  Logger logger = LogManager.getLogger();
+
     @Test
     public void getAllTest() {
-
-
         List<GetResponse> list = new ArrayList<>();
         Response getResponse = getUser();
         JSONArray jsonArray = new JSONArray(getResponse.asString());
@@ -48,9 +41,9 @@ public class GetPostPutDelete extends BaseClass {
         logger.debug("This is debug message ");
         logger.warn("This is warn message");
         logger.trace("This is trace message");
-
         assertThat(getResponse.getStatusCode(),is(HttpStatus.SC_OK));
     }
+
 
     @Test
     public void postTest() {
@@ -68,8 +61,8 @@ public class GetPostPutDelete extends BaseClass {
         id = postResponse.getId();
         int id = jsonObject.getInt("id");
         Response res = deleteUser(id);
-
     }
+
 
     @Test
     public void updateTest() {
@@ -94,13 +87,11 @@ public class GetPostPutDelete extends BaseClass {
         PutResponse updateResponse = updateUser(putBody, id);
 
         Response res = deleteUser(id);
-
     }
 
 
     @Test
     public void deleteTest() {
-
         PostBody postBody = new PostBody();
         Faker faker = new Faker();
         postBody.setName(faker.name().name());
@@ -112,13 +103,12 @@ public class GetPostPutDelete extends BaseClass {
         int id = jsonObject.getInt("id");
         Response deleteResponse = deleteUser(id);
         assertThat(deleteResponse.getStatusCode(), is(HttpStatus.SC_NO_CONTENT));
-
     }
 
     //Get Method
     public Response getUser() {
         Response getResponse = given()
-                .request(Method.GET, "/users");
+                .request(Method.GET, "public/v2/users");
         return getResponse;
     }
 
@@ -130,7 +120,7 @@ public class GetPostPutDelete extends BaseClass {
                 .contentType(ContentType.JSON)
                 .body(postBody)
                 .when()
-                .request(Method.POST, "/users")
+                .request(Method.POST, "public/v2/users")
                 .as(PostResponse.class);
         return postResponse;
     }
@@ -143,15 +133,16 @@ public class GetPostPutDelete extends BaseClass {
                 .contentType(ContentType.JSON)
                 .body(putBody)
                 .when()
-                .request(Method.PUT, "/users/" + id)
+                .request(Method.PUT, "public/v2/users/" + id)
                 .as(PutResponse.class);
         return putResponse;
     }
+
     //Delete Method
     public Response deleteUser(int id) {
         Response response = given()
                 .header("Authorization", "Bearer " + accessToken)
-                .request(Method.DELETE, "/users/" + id);
+                .request(Method.DELETE, "public/v2/users/" + id);
         return response;
     }
 }
